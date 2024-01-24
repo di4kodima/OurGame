@@ -24,9 +24,8 @@ public interface IEnemy
 
 public interface IWayPoint
 {
-    public List<IWayPoint> GetPastPoints ();
-
-    public List<IWayPoint> GetNextPoints();
+    public List<IWayPoint> ParentPoints { get; }
+    public List<IWayPoint> ChildPoints { get; }
 
     public IWayPoint GetNextPoint();
 }
