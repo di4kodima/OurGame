@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class WayPointRandom : MonoBehaviour, IWayPoint
 {
-    public List<WayPointRandom> PastPoints { get; set; }
-    public List<WayPointRandom> NextPoints { get; set; }
+    public List<IWayPoint> ParentPoints { get; } = new List<IWayPoint>();
+    public List<IWayPoint> ChildPoints { get; } = new List<IWayPoint>();
 
     public GameObject a;
     public GameObject b;
@@ -16,36 +16,22 @@ public class WayPointRandom : MonoBehaviour, IWayPoint
 
     void Awake()
     {
-        NextPoints = new List<WayPointRandom>();
-        PastPoints = new List<WayPointRandom>();
-
         if (a != null)
-            NextPoints.Add(a.GetComponent<WayPointRandom>());
+            ChildPoints.Add(a.GetComponent<IWayPoint>());
         if(b != null)
-            NextPoints.Add(b.GetComponent<WayPointRandom>());
+            ChildPoints.Add(b.GetComponent<IWayPoint>());
         if(c != null)
-            NextPoints.Add(c.GetComponent<WayPointRandom>());
+            ChildPoints.Add(c.GetComponent<IWayPoint>());
         if(d != null)
-            NextPoints.Add(d.GetComponent<WayPointRandom>());
+            ChildPoints.Add(d.GetComponent<IWayPoint>());
         if(e != null)
-            NextPoints.Add(e.GetComponent<WayPointRandom>());
+            ChildPoints.Add(e.GetComponent<IWayPoint>());
     }
 
     public IWayPoint GetNextPoint()
     {
-        int rnd = Random.Range(0, NextPoints.Count);
-        return NextPoints[rnd];
-    }
-
-    public List<IWayPoint> GetPastPoints()
-    {
-        List<IWayPoint> convertedPastPoints = new List<IWayPoint>(PastPoints.Cast<IWayPoint>());
-        return convertedPastPoints;
-    }
-
-    public List<IWayPoint> GetNextPoints()
-    {
-        List<IWayPoint> convertedNextPoints = new List<IWayPoint>(NextPoints.Cast<IWayPoint>());
-        return convertedNextPoints;
+        if (ChildPoints.Count == 0) return null;
+        int rnd = Random.Range(0, ChildPoints.Count);
+        return ChildPoints[rnd];
     }
 }
