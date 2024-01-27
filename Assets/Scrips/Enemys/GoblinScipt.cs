@@ -16,7 +16,7 @@ public class Enemy_Goblin : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("I born!");
+
     }
     public void Move()
     {
@@ -42,7 +42,7 @@ public class Enemy_Goblin : MonoBehaviour
 
     public void ChangePoint()
     {
-        WayPoint =  (WayPointRandom)WayPoint.GetNextPoint();
+        WayPoint = (WayPointRandom)WayPoint.GetNextPoint();
     }
     // Update is called once per frame
     void Update()
