@@ -7,6 +7,8 @@ public interface IEnemy
     string Name { get; }
 }
 
+public enum Enemys
+{ Goblin }
 public interface IWayPoint
 {
     public List<IWayPoint> ParentPoints { get; }

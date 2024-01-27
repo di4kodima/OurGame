@@ -5,8 +5,7 @@ using System.IO;
 
 public class Wave_Controller : MonoBehaviour
 {
-    public (string, float) [] wave_1 = { ("Goblin", 1) };
-
+    public List<(string, float)> wave_1 = new List<(string, float)>{ ("Enemy", 1), ("Enemy", 1), ("Enemy", 1), ("Enemy", 1), ("Enemy", 1), ("Enemy", 1), ("Enemy", 1), };
     // Start is called before the first frame update
     void Start()
     {

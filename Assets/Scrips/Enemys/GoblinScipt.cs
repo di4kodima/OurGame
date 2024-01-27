@@ -16,7 +16,7 @@ public class Enemy_Goblin : MonoBehaviour
 
     void Start()
     {
-    
+        Debug.Log("I born!");
     }
     public void Move()
     {
