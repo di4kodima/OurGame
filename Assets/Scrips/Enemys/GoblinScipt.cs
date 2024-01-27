@@ -24,7 +24,6 @@ public class Enemy_Goblin : MonoBehaviour
 
         MoveDirection = Vector3.Normalize(WayPoint.transform.position - transform.position);
         transform.position += MoveDirection * Time.deltaTime * Speed;
-        Debug.Log(MoveDirection);
         
         if (Vector3.Distance(transform.position, WayPoint.transform.position) < 0.1f) ChangePoint();
 
