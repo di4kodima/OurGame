@@ -129,7 +129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d66b0033bf453940bab1a7a5bc0233b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 0.1
+  Health: 100
+  Speed: 1
   Goblin_Front: {fileID: 577434027, guid: eb5ef1c5cf8e6f7458cedfa307295f8e, type: 3}
   Goblin_Back: {fileID: 389916847, guid: eb5ef1c5cf8e6f7458cedfa307295f8e, type: 3}
   Goblin_Right: {fileID: -1174125805, guid: eb5ef1c5cf8e6f7458cedfa307295f8e, type: 3}

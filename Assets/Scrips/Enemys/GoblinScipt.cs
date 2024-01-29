@@ -4,9 +4,8 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Enemy_Goblin : MonoBehaviour
+public class Enemy_Goblin : GumanoidEnemy
 {
-    public float Speed = 0.25f;
     public Sprite Goblin_Front;
     public Sprite Goblin_Back;
     public Sprite Goblin_Right;
@@ -18,7 +17,7 @@ public class Enemy_Goblin : MonoBehaviour
     {
         Debug.Log("I born!");
     }
-    public void Move()
+    public override void Move()
     {
         if (WayPoint == null) return;
 
