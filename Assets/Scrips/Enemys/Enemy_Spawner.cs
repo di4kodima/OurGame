@@ -10,7 +10,6 @@ public class Enemy_Spawner : MonoBehaviour
     public void spawnWave(List<(Enemys, float)> EnemysWave) {
         CurrentWave = EnemysWave;
         delay = CurrentWave[0].Item2;
-        delay = CurrentWave[0].Item2;
     }
     // Start is called before the first frame update
     void Start()
@@ -28,10 +27,11 @@ public class Enemy_Spawner : MonoBehaviour
             timer = 0;
             if (CurrentWave.Count > 0)
             {
-                string part = CurrentWave[0].Item1;
+                string part = CurrentWave[0].Item1.ToString();
 
                 GameObject Enemy = Resources.Load<GameObject>($"Prefabs/Enemies/{part}");
-
+                CurrentWave.RemoveAt(0);
+                delay = CurrentWave[0].Item2;
                 Debug.Log(Enemy.ToString() + "������");
 
                 Enemy.GetComponent<Enemy_Goblin>().WayPoint = transform.parent.transform.parent.transform.GetChild(1).transform.GetChild(0).GetComponent<WayPointRandom>();
