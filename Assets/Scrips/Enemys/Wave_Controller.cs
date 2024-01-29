@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
 
 public class Wave_Controller : MonoBehaviour
 {
@@ -13,7 +11,8 @@ public class Wave_Controller : MonoBehaviour
         enemy_Spawner.spawnWave(wave_1);
     }
 
-    // Update is called once per frame
+
+
     void Update()
     {
         
