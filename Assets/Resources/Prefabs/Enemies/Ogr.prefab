@@ -43,16 +43,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2837686037502414815}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d66b0033bf453940bab1a7a5bc0233b, type: 3}
+  m_Script: {fileID: 11500000, guid: b9546f286ce05dd44bceb31ae4a69be1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 300
-  Speed: 0.4
-  Goblin_Front: {fileID: 265441383, guid: 9bffb00632808e2458ae166843870097, type: 3}
-  Goblin_Back: {fileID: 0}
-  Goblin_Right: {fileID: 0}
-  Goblin_Left: {fileID: 0}
   WayPoint: {fileID: 0}
+  Health: 0
+  Speed: 0
+  Damage: 0
 --- !u!95 &7524983337110937210
 Animator:
   serializedVersion: 5
