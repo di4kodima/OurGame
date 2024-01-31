@@ -24,9 +24,12 @@ public class Enemy_Goblin : GumanoidEnemy
 
     void Start()
     {
-
+        //TimeTicker.Instance.Tickk += Move;
+        //TimeTicker.Instance.Tickk += ChangePoint;
+        TimeTicker.Instance.Tickk += Hello;
     }
 
+    void Hello() => Debug.Log("Ns kj[!");
 
 
     void Update()
@@ -36,7 +39,8 @@ public class Enemy_Goblin : GumanoidEnemy
     }
     public override void Move()
     {
-        if (WayPoint == null) { Destroy(gameObject); return; }                               // ��� ���������� ��������� ����� �� ������� �����
+        if (WayPoint == null) 
+            { Destroy(gameObject); return; }                               // ��� ���������� ��������� ����� �� ������� �����
         MoveDirection = Vector3.Normalize(WayPoint.transform.position - transform.position); // ��������� ������, � ��������� �� ����� �� WayPoint
         transform.position += MoveDirection * Time.deltaTime * Speed;                        // �������� ���������� �����
         
