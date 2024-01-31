@@ -463,7 +463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e410e840bac023d41a5d53247c685914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxTickTime: 0.02
+  MaxTickTime: 0.05
 --- !u!1001 &746134753
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2059,7 +2059,7 @@ PrefabInstance:
     - target: {fileID: 1086149156212675047, guid: 417db4f0213b84b4dbd0b1ce43b8c554, type: 3}
       propertyPath: a
       value: 
-      objectReference: {fileID: 2009370787}
+      objectReference: {fileID: 0}
     - target: {fileID: 1952101434577894277, guid: 417db4f0213b84b4dbd0b1ce43b8c554, type: 3}
       propertyPath: m_Name
       value: WayPoint (7)

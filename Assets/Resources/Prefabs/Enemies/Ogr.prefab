@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WayPoint: {fileID: 0}
   Health: 0
-  Speed: 0
+  Speed: 0.005
   Damage: 0
 --- !u!95 &7524983337110937210
 Animator:

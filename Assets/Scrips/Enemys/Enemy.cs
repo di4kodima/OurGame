@@ -18,21 +18,23 @@ public abstract class Enemy : MonoBehaviour
 	{
 		sr = transform.GetChild(0).GetComponent<SpriteRenderer>();
 		anim = GetComponent<Animator>();
-	}
+
+		TimeTicker.Instance.Tickk += Move;
+        TimeTicker.Instance.Tickk += ChangeMovingAnim;
+    }
 
 
 
     protected void Start()
 	{
-
     }
 
 
 
     protected void Update()
 	{
-		Move();
-		ChangeMovingAnim();
+		//Move();
+		//ChangeMovingAnim();
     }
 
 
@@ -41,7 +43,7 @@ public abstract class Enemy : MonoBehaviour
 	{
         if (WayPoint == null) { Destroy(gameObject); return; }
         MoveDirection = Vector3.Normalize(WayPoint.transform.position - transform.position);
-		transform.position += MoveDirection * Time.deltaTime * Speed;
+		transform.position += MoveDirection * Speed;
 		
 		if (Vector3.Distance(transform.position, WayPoint.transform.position) < 0.1f) ChangePoint();
 	}
