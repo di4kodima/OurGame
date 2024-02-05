@@ -8,12 +8,15 @@ public class TimeTicker : MonoBehaviour
     State state = State.Work;
     int fps = 60;
     float boost = 1f;
-    int MaxFPS { get { return fps; } 
+    public int MaxFPS { get { return fps; } 
         set 
-        { 
-            MaxTickTime = (float)1 / value; 
+        {
+            Debug.Log(value);
+            if (value <= 0)
+                fps = 1;
+            MaxTickTime = (float)1 / fps; 
             fps = value;
-            boost = (float)60 / fps;
+            boost = (float)fps / 60;
         } 
     }
     float time = 0;
@@ -39,6 +42,7 @@ public class TimeTicker : MonoBehaviour
         }
     }
     public delegate void TimeTickerDelegate(float value);
+    public event Action Stop;
     public event TimeTickerDelegate Tickk;
     void Update()
     {
@@ -49,7 +53,11 @@ public class TimeTicker : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
             if (state == State.Pause)
                 state = State.Work;
-            else state = State.Pause;
+            else
+            {
+                state = State.Pause;
+                Stop?.Invoke();
+            }
         if (state == State.Pause)
             return;
         time += Time.deltaTime;
@@ -57,7 +65,7 @@ public class TimeTicker : MonoBehaviour
         {
             while (time > MaxTickTime) 
             {
-                Tickk(boost);
+                Tickk?.Invoke(boost);
                 time -= MaxTickTime;
             }
         }

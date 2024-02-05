@@ -19,7 +19,7 @@ public abstract class Enemy : MonoBehaviour
 	{
 		sr = transform.GetChild(0).GetComponent<SpriteRenderer>();
 		anim = GetComponent<Animator>();
-
+		TimeTicker.Instance.Stop += TimeStop;
 		TimeTicker.Instance.Tickk += TimeUpdate;
 	}
 
@@ -34,6 +34,13 @@ public abstract class Enemy : MonoBehaviour
 	protected void Update()
 	{
 	}
+
+	void TimeStop()
+    {
+        Animator anim = transform.GetComponent<Animator>();
+        anim.speed = 0;
+	}
+
 	void TimeUpdate(float boost)
 	{
 		Move();
