@@ -1,5 +1,6 @@
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public abstract class Enemy : MonoBehaviour
 {
@@ -8,35 +9,38 @@ public abstract class Enemy : MonoBehaviour
 	private SpriteRenderer sr;
 	private Animator anim;
 
-    public float Health;
-    public float Speed;
-    public float Damage;
+	public float Health;
+	public float Speed;
+	public float Damage;
 
 
 
-    protected void Awake()
+	protected void Awake()
 	{
 		sr = transform.GetChild(0).GetComponent<SpriteRenderer>();
 		anim = GetComponent<Animator>();
 
-		TimeTicker.Instance.Tickk += Move;
-        TimeTicker.Instance.Tickk += ChangeMovingAnim;
-    }
+		TimeTicker.Instance.Tickk += TimeUpdate;
+	}
 
 
 
-    protected void Start()
+	protected void Start()
 	{
-    }
+	}
 
 
 
-    protected void Update()
+	protected void Update()
 	{
-		//Move();
-		//ChangeMovingAnim();
-    }
-
+	}
+	void TimeUpdate(float boost)
+	{
+		Move();
+		ChangeMovingAnim();
+		Animator anim = transform.GetComponent<Animator>();
+		anim.speed = boost;
+	}
 
 
 	public virtual void Move()
