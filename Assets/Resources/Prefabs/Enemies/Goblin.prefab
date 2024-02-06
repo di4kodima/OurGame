@@ -131,9 +131,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WayPoint: {fileID: 0}
-  Health: 0
-  Speed: 0.005
-  Damage: 0
+  Health: 5
+  Speed: 1
+  Damage: 1
+  Reward: 10
 --- !u!95 &5854601506013890833
 Animator:
   serializedVersion: 5

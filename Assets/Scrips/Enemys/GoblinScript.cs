@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Goblin : Enemy
 {
+
     private new void Awake()
     {
         base.Awake();
