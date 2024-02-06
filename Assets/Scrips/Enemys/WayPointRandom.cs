@@ -1,34 +1,48 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-public class WayPointRandom : MonoBehaviour, IWayPoint
+public abstract class WayPoint : MonoBehaviour
 {
-    public List<IWayPoint> ParentPoints { get; } = new List<IWayPoint>();
-    public List<IWayPoint> ChildPoints { get; } = new List<IWayPoint>();
+    public List<WayPoint> ParentPoints { get; } = new List<WayPoint>();
+    public List<WayPoint> ChildPoints { get; } = new List<WayPoint>();
 
     public GameObject a;
+
+    void Awake()
+    {
+        if (a != null) ChildPoints.Add(a.GetComponent<WayPoint>());
+    }
+
+    public virtual WayPoint GetNextPoint()
+    {
+        return ChildPoints[0];
+    }
+}
+
+
+
+public class WayPointRandom : WayPoint
+{
     public GameObject b;
     public GameObject c;
     public GameObject d;
     public GameObject e;
 
-    void Awake()
+    private void Awake()
     {
         if (a != null)
-            ChildPoints.Add(a.GetComponent<IWayPoint>());
-        if(b != null)
-            ChildPoints.Add(b.GetComponent<IWayPoint>());
-        if(c != null)
-            ChildPoints.Add(c.GetComponent<IWayPoint>());
-        if(d != null)
-            ChildPoints.Add(d.GetComponent<IWayPoint>());
-        if(e != null)
-            ChildPoints.Add(e.GetComponent<IWayPoint>());
+            ChildPoints.Add(a.GetComponent<WayPoint>());
+        if (b != null)
+            ChildPoints.Add(b.GetComponent<WayPoint>());
+        if (c != null)
+            ChildPoints.Add(c.GetComponent<WayPoint>());
+        if (d != null)
+            ChildPoints.Add(d.GetComponent<WayPoint>());
+        if (e != null)
+            ChildPoints.Add(e.GetComponent<WayPoint>());
     }
 
-    public IWayPoint GetNextPoint()
+    public override WayPoint GetNextPoint()
     {
         if (ChildPoints.Count == 0) return null;
         int rnd = Random.Range(0, ChildPoints.Count);

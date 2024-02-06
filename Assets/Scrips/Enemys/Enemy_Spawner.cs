@@ -1,43 +1,50 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy_Spawner : MonoBehaviour
 {
-    public float delay = 5;
-    float timer = 0;
-    List<(Enemys, float)> CurrentWave;
+    public bool isWorking = false;
 
-    public void spawnWave(List<(Enemys, float)> EnemysWave) {
+    private float delay;
+
+    private List<(Enemys, float)> CurrentWave;
+
+    /// <summary>
+    /// Метод старта спавна волны. Задает все начальные параметры для спавна, после вызывает рекурсивнцю функцию Enemy_Spawner.SpawnWave()
+    /// </summary>
+    /// <param name="EnemysWave">Волна для спавна.</param>
+    public void StartSpawnWave(List<(Enemys, float)> EnemysWave) {
+        isWorking = true;
         CurrentWave = EnemysWave;
         delay = CurrentWave[0].Item2;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-
+        StartCoroutine(SpawnWave());
     }
 
-
-
-    void Update()
+    /// <summary>
+    /// Рекурсивная функция для спавна волны противников, оснаванная на корутине.
+    /// </summary>
+    /// <returns>Необходимый для корутины IEnumerator</returns>
+    public IEnumerator SpawnWave()
     {
-        timer += Time.deltaTime;
-        if (timer > delay)
-        {
-            timer = 0;
-            if (CurrentWave.Count > 0)
-            {
-                string part = CurrentWave[0].Item1.ToString();
+        if (!isWorking) yield return null;
+        if (CurrentWave.Count == 0) { 
+            isWorking = false;
 
-                GameObject Enemy = Resources.Load<GameObject>($"Prefabs/Enemies/{part}");
-                CurrentWave.RemoveAt(0);
-                delay = CurrentWave[0].Item2;
-                Debug.Log(Enemy.ToString() + "пїЅпїЅпїЅпїЅпїЅпїЅ");
+            Debug.Log("Волна закончилась!");
 
-                Enemy.GetComponent<Enemy_Goblin>().WayPoint = transform.parent.transform.parent.transform.GetChild(1).transform.GetChild(0).GetComponent<WayPointRandom>();
-                Debug.Log(Enemy.GetComponent<Enemy_Goblin>().WayPoint);
-                GameObject instantiatedObject = Instantiate(Enemy, transform.position, new Quaternion());
-            }
+            yield return null;
         }
+
+        yield return new WaitForSeconds(delay);
+
+        string Enemy_type = CurrentWave[0].Item1.ToString();
+        GameObject Enemy = Resources.Load<GameObject>($"Prefabs/Enemies/{Enemy_type}");
+        delay = CurrentWave[0].Item2;
+        Enemy.GetComponent<Enemy>().WayPoint = GameObject.FindGameObjectWithTag("WayPointContainer").transform.GetChild(0).GetComponent<WayPointRandom>();
+        GameObject instantiatedObject = Instantiate(Enemy, transform.position, new Quaternion());
+        CurrentWave.RemoveAt(0);
+
+        StartCoroutine(SpawnWave());
     }
 }
