@@ -9,54 +9,63 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private int startMoney;
-    public PlayerMoney money;
+    [SerializeField] private int startHealth;
+    private int _health;
+    private PlayerMoney _money;
+    public PlayerMoney money { get { return _money; } set
+        {
+            _money = value;
+            moneyRenderer.updateText(_money.ToString());
+        }
+    }
+
+    public int health
+    {
+        get { return _health; }
+        set
+        {
+            _health = value;
+            healthRenderer.updateText(_health.ToString());
+        }
+    }
 
     public static Player Instance;
-    [SerializeField] private MoneyRenderer moneyRenderer;
+    [SerializeField] private TextRenderer moneyRenderer;
+    [SerializeField] private TextRenderer healthRenderer;
 
     private void Awake()
     {
-        GameManager.GameEventsHandler += OnEnemyKilled;
-        GameManager.GameEventsHandler += OnBuiltStructure;
-        money = startMoney;
         Instance = this;
+        Enemy.OnKilled += OnEnemyKilled;
+        Enemy.OnEnteredInTheTown += OnEnemyEnterInTheTown;
+        BuildingsPlacer.OnPlayerBuiltStructure += OnBuiltStructure;
+    }
+
+    private void Start()
+    {
+        health = startHealth;
+        money = startMoney;
     }
 
     private void OnDestroy()
     {
-        GameManager.GameEventsHandler -= OnEnemyKilled;
-        GameManager.GameEventsHandler -= OnBuiltStructure;
+        Enemy.OnKilled -= OnEnemyKilled;
+        Enemy.OnEnteredInTheTown -= OnEnemyEnterInTheTown;
+        BuildingsPlacer.OnPlayerBuiltStructure -= OnBuiltStructure;
     }
 
-    private void OnEnemyKilled(GameEvents events, object obj)
+    private void OnEnemyKilled(Enemy enemy)
     {
-        if (events == GameEvents.EnemyKilled)
-        {
-            if (!(obj as Enemy)) return;
-            int enemyReward = ((Enemy)obj).Reward;
-            addMoneyAmount(enemyReward);
-        }
+        money += enemy.Reward;
+        moneyRenderer.updateText(money.ToString());
     }
 
-    private void OnBuiltStructure(GameEvents events, object obj)
-    {
-        if (events == GameEvents.PlayerBuiltStructure)
-        {
-            if (!(obj as Tower)) return;
-            int buildings_cost = ((Tower)obj).cost;
-            spentMoneyAmount(buildings_cost);
-        }
+    private void OnEnemyEnterInTheTown(Enemy enemy) { 
+        health -= enemy.Damage;
     }
 
-    public void addMoneyAmount(int amount)
+    private void OnBuiltStructure(Tower tower)
     {
-        money += amount;
-        moneyRenderer.updateMoneyCount(money);
-    }
-
-    public void spentMoneyAmount(int amount)
-    {
-        money.Spend(amount);
-        moneyRenderer.updateMoneyCount(money);
+        money = money.Spend(tower.cost);
     }
 }

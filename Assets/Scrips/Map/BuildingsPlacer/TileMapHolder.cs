@@ -29,11 +29,10 @@ public class TileMapHolder : MonoBehaviour
                 grid[x, y] = new GridCell(CellType, CellPosition.x, CellPosition.y, false);
             }
         }
-        Debug.Log(grid);
     }
 
-    public void setCellOccupiedStatus(Vector2Int cellPos, bool isOccupied) {
-        grid[cellPos.x, cellPos.y].IsOccupied = isOccupied;
+    public void setCellOccupiedStatus(Vector3Int cellPos, bool isOccupied) {
+        grid[cellPos.x, -cellPos.y].IsOccupied = isOccupied;
     }
 
     public GridCell getCell (Vector2Int cellPos) {

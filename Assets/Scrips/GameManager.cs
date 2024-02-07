@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
             Enemy enemy = FindAnyObjectByType<Enemy>();
             if (enemy != null)
             {
-                enemy.Death();
+                enemy.Kill();
             }
         }
     }
