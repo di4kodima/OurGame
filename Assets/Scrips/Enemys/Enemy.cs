@@ -1,17 +1,23 @@
+using System;
 using Unity.Mathematics;
 using UnityEditor.PackageManager;
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class Enemy : MonoBehaviour
 {
-	public WayPoint WayPoint;
+	public static event Action<Enemy> OnKilled;
+    public static event Action<Enemy> OnEnteredInTheTown;
+
+
+    public WayPoint WayPoint;
 	private Vector3 MoveDirection;
 	private SpriteRenderer sr;
 	private Animator anim;
 
     public float Health;
     public float Speed;
-    public float Damage;
+    public int Damage;
 	public int Reward;
 
 
@@ -60,16 +66,17 @@ public abstract class Enemy : MonoBehaviour
 		if (maxCoord == MoveDirection.y) anim.SetInteger("move_direction", -1);
 		else if (maxCoord == -MoveDirection.y) anim.SetInteger("move_direction", 1);
     }
-    public void Death()
+
+    public void Kill()
 	{
-        GameManager.Instance.InvokeGameEvent(GameEvents.EnemyKilled, this);
+        OnKilled?.Invoke(this);
         Destroy(gameObject);
 		return;
     }
 
 	public void EnteredInTheTown()
 	{
-		GameManager.Instance.InvokeGameEvent(GameEvents.EnemyEnteredInTheTown, this);
+		OnEnteredInTheTown?.Invoke(this);
         Destroy(gameObject);
         return;
     }

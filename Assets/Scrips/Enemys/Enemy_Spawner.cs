@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class Enemy_Spawner : MonoBehaviour
 {
+    public static Enemy_Spawner Instance;
     public bool isWorking = false;
 
     private float delay;
 
     private List<(Enemys, float)> CurrentWave;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     /// <summary>
     /// Метод старта спавна волны. Задает все начальные параметры для спавна, после вызывает рекурсивнцю функцию Enemy_Spawner.SpawnWave()
@@ -27,13 +33,13 @@ public class Enemy_Spawner : MonoBehaviour
     /// <returns>Необходимый для корутины IEnumerator</returns>
     public IEnumerator SpawnWave()
     {
-        if (!isWorking) yield return null;
+        if (!isWorking) yield break;
         if (CurrentWave.Count == 0) { 
             isWorking = false;
 
             Debug.Log("Волна закончилась!");
 
-            yield return null;
+            yield break;
         }
 
         yield return new WaitForSeconds(delay);
