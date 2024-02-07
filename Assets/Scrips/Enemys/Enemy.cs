@@ -21,7 +21,7 @@ public abstract class Enemy : MonoBehaviour
 	public int Reward;
 
 
-    protected void Awake()
+	protected void Awake()
 	{
 		sr = transform.GetChild(0).GetComponent<SpriteRenderer>();
 		anim = GetComponent<Animator>();
@@ -31,22 +31,35 @@ public abstract class Enemy : MonoBehaviour
     {
     }
 
-    protected void Start()
+	protected void Start()
 	{
         
     }
 
-    protected void Update()
+	protected void Update()
+	{
+	}
+
+	void TimeStop()
+    {
+        Animator anim = transform.GetComponent<Animator>();
+        anim.speed = 0;
+	}
+
+	void TimeUpdate(float boost)
 	{
 		Move();
 		ChangeMovingAnim();
-    }
+		Animator anim = transform.GetComponent<Animator>();
+		anim.speed = boost;
+	}
+
 
 	public virtual void Move()
 	{
         if (WayPoint == null) { EnteredInTheTown(); return; }
         MoveDirection = Vector3.Normalize(WayPoint.transform.position - transform.position);
-		transform.position += MoveDirection * Time.deltaTime * Speed;
+		transform.position += MoveDirection * Speed;
 		
 		if (Vector3.Distance(transform.position, WayPoint.transform.position) < 0.1f) ChangePoint();
     }
